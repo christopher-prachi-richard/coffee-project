@@ -9,7 +9,7 @@ function renderCoffee(coffee) {
 }
 
 function renderCoffees(coffees) {
-    coffees.sort( (a, b) =>{
+    coffees.sort((a, b) => {
         return b.id - a.id;
     })
     var html = '';
@@ -79,9 +79,7 @@ function addCoffee(e) {
     }
     submitButton.value = "Add / Remove";
     addCoffeeName.value = "";
-    // console.log(addRoastSelection.value);
     addRoastSelection.value = "light";
-    // console.log(addRoastSelection.value);
     divCoffee.innerHTML = renderCoffees(coffees);
 }
 
