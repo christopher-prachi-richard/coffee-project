@@ -79,6 +79,9 @@ function addCoffee(e) {
     }
     submitButton.value = "Add / Remove";
     addCoffeeName.value = "";
+    // console.log(addRoastSelection.value);
+    addRoastSelection.value = "light";
+    // console.log(addRoastSelection.value);
     divCoffee.innerHTML = renderCoffees(coffees);
 }
 
