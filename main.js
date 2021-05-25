@@ -1,25 +1,16 @@
 "use strict"
 
 function renderCoffee(coffee) {
-    var html = '<div class="coffee col-6">';
-    html += `<h1 class="d-inline">` + coffee.name;
-    html += `<h4 class="d-inline text-secondary">` + coffee.roast;
+    var html = '<div class="coffee col-12 col-md-6">';
+    html += `<h2 class="d-inline">` + coffee.name;
+    html += `<h4 class="d-inline text-secondary">` + " " + coffee.roast;
     html += `</div>`;
     return html;
 }
 
-function addEvents(){
-    document.getElementById('roastType')
-        .addEventListener("keyup", searchCoffeeListener)
-}
-function searchCoffeeListener(){
-    document.getElementById('coffees')
-        .appendChild(renderCoffees(coffees))
-}
-
 function renderCoffees(coffees) {
     var html = '';
-    for(var i = coffees.length - 1; i >= 0; i--) {
+    for (var i = coffees.length - 1; i >= 0; i--) {
         html += renderCoffee(coffees[i]);
     }
     return html;
@@ -28,13 +19,31 @@ function renderCoffees(coffees) {
 function updateCoffees(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
     var selectedRoast = roastSelection.value;
+    //selectedRoast ='';
+    var selectedCoffeeNameUpperCase = coffeeName.value.toUpperCase();
     var filteredCoffees = [];
-    coffees.forEach(function(coffee) {
-        if (coffee.roast === selectedRoast) {
+    coffees.forEach(function (coffee) {
+        let coffeeNameUpperCase = coffee.name.toUpperCase();
+        if ((coffee.roast === selectedRoast)
+            &&
+            coffeeNameUpperCase.search(selectedCoffeeNameUpperCase) > -1) {
             filteredCoffees.push(coffee);
         }
     });
     divCoffee.innerHTML = renderCoffees(filteredCoffees);
+}
+
+function addCoffee(e) {
+    e.preventDefault(); // don't submit the form, we just want to update the data
+    var selectedRoast = addRoastSelection.value;
+    var newCoffeeName = addCoffeeName.value;
+    let newCoffee = {
+        id: coffees.length,
+        name: newCoffeeName,
+        roast: selectedRoast
+    }
+    coffees.push(newCoffee);
+    divCoffee.innerHTML = renderCoffees(coffees);
 }
 
 // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
@@ -56,9 +65,18 @@ var coffees = [
 ];
 
 var divCoffee = document.querySelector('#coffees');
-var submitButton = document.querySelector('#submit');
+var coffeeName = document.querySelector('#coffeeName');
 var roastSelection = document.querySelector('#roast-selection');
 
 divCoffee.innerHTML = renderCoffees(coffees);
 
-submitButton.addEventListener('click', updateCoffees);
+roastSelection.addEventListener('change', updateCoffees);
+//coffeeName.addEventListener('click', updateCoffees);
+coffeeName.addEventListener('keyup', updateCoffees);
+
+var addCoffeeName = document.querySelector('#addCoffeeName');
+var addRoastSelection = document.querySelector('#addRoastType');
+var submitButton = document.querySelector('#submitAddCoffee');
+
+
+submitButton.addEventListener('click', addCoffee);
