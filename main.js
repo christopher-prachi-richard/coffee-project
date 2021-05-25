@@ -40,16 +40,42 @@ function updateCoffees(e) {
     divCoffee.innerHTML = renderCoffees(filteredCoffees);
 }
 
+function changeSubmitButton(e) {
+    var selectedRoast = addRoastSelection.value;
+    var newCoffeeName = addCoffeeName.value;
+
+    let found = {};
+    found = coffees.findIndex(element =>
+        element.name.toUpperCase() === newCoffeeName.toUpperCase()
+        && element.roast.toUpperCase() === selectedRoast.toUpperCase());
+    if (found === -1) {
+        submitButton.value = "Add"
+    } else {
+        submitButton.value = "Remove"
+    }
+}
+
 function addCoffee(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
     var selectedRoast = addRoastSelection.value;
     var newCoffeeName = addCoffeeName.value;
+    var flag = false;
     let newCoffee = {
         id: coffees.length,
         name: newCoffeeName,
         roast: selectedRoast
     }
-    coffees.push(newCoffee);
+    let found = {};
+    found = coffees.findIndex(element =>
+        element.name.toUpperCase() === newCoffeeName.toUpperCase()
+        && element.roast.toUpperCase() === selectedRoast.toUpperCase());
+    if (found === -1) {
+        coffees.push(newCoffee);
+    } else {
+        coffees.splice(found, 1);
+    }
+    submitButton.value = "Add / Remove";
+    addCoffeeName.textContent = "";
     divCoffee.innerHTML = renderCoffees(coffees);
 }
 
@@ -78,12 +104,13 @@ var roastSelection = document.querySelector('#roast-selection');
 divCoffee.innerHTML = renderCoffees(coffees);
 
 roastSelection.addEventListener('change', updateCoffees);
-//coffeeName.addEventListener('click', updateCoffees);
 coffeeName.addEventListener('keyup', updateCoffees);
 
 var addCoffeeName = document.querySelector('#addCoffeeName');
 var addRoastSelection = document.querySelector('#addRoastType');
 var submitButton = document.querySelector('#submitAddCoffee');
+addCoffeeName.addEventListener('keyup', changeSubmitButton);
+addRoastSelection.addEventListener('change', changeSubmitButton);
 
 
 submitButton.addEventListener('click', addCoffee);
