@@ -19,15 +19,22 @@ function renderCoffees(coffees) {
 function updateCoffees(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
     var selectedRoast = roastSelection.value;
-    //selectedRoast ='';
+    var flag = (roastSelection.value === "all");
+    console.log(flag);
     var selectedCoffeeNameUpperCase = coffeeName.value.toUpperCase();
     var filteredCoffees = [];
     coffees.forEach(function (coffee) {
         let coffeeNameUpperCase = coffee.name.toUpperCase();
-        if ((coffee.roast === selectedRoast)
-            &&
-            coffeeNameUpperCase.search(selectedCoffeeNameUpperCase) > -1) {
-            filteredCoffees.push(coffee);
+        if (flag) {
+            if (coffeeNameUpperCase.search(selectedCoffeeNameUpperCase) > -1) {
+                filteredCoffees.push(coffee);
+            }
+        } else {
+            if ((coffee.roast === selectedRoast)
+                &&
+                coffeeNameUpperCase.search(selectedCoffeeNameUpperCase) > -1) {
+                filteredCoffees.push(coffee);
+            }
         }
     });
     divCoffee.innerHTML = renderCoffees(filteredCoffees);
