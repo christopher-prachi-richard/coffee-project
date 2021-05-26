@@ -1,10 +1,15 @@
 body {
-    background-color: darkorange;
-    color: #f6dcbf;
+    background-color: #49281A;
+    color: #DFB78C;
     font-family: 'Pattaya', sans-serif;
 }
 
-h4 {
-    
+.btn{
+    background-color: #AB6832;
+    color: #DFB78C;
+}
+
+hr{
+    background-color: #DFB78C;
 }
 
