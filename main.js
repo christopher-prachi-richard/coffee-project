@@ -91,7 +91,7 @@ function deleteCoffeeFromStorage(coffeeID) {
 function renderCoffee(coffee) {
     let html = `<div id="${coffee.id}" data-toggle="tooltip" title="${coffee.description}" class="coffee col-10 col-md-6 mb-5 ">`;
     html += `<h2 class="d-inline">` + coffee.name;
-    html += `<h4 class="d-inline text-secondary">` + " " + coffee.roast;
+    html += `<h5 class="d-inline text-secondary">` + " " + coffee.roast;
     html += `</div>`;
     return html;
 }
