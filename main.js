@@ -91,12 +91,12 @@ function deleteCoffeeFromStorage(coffeeID) {
 function renderCoffee(coffee) {
     let html = `<div id="${coffee.id}" data-toggle="tooltip" title="${coffee.description}" class="coffee col-10 col-md-6 mb-5 ">`;
     html += `<h2 class="d-inline">` + coffee.name;
-    html += `<h5 class="d-inline text-secondary">` + " " + coffee.roast;
+    html += `<h5 class="d-inline text-light">` + " " + coffee.roast;
     html += `</div>`;
     return html;
 }
 
-function showToolTip(id){
+function showToolTip(id) {
     document.getElementById("id").addeventlistener
 }
 
@@ -109,6 +109,7 @@ function renderCoffees(coffees) {
     }
     return html;
 }
+
 //filter the coffees as selected criteria and display the filtered list.
 function displayFilteredCoffees(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
