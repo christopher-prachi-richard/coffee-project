@@ -2,21 +2,21 @@
 
 // from http://www.ncausa.org/About-Coffee/Coffee-Roasts-Guide
 let arrCoffees = [
-    {id: 0, name: 'Full City', roast: 'medium'},
-    {id: 1, name: 'Light City', roast: 'light'},
-    {id: 2, name: 'Half City', roast: 'light'},
-    {id: 3, name: 'Cinnamon', roast: 'light'},
-    {id: 4, name: 'City', roast: 'medium'},
-    {id: 5, name: 'American', roast: 'medium'},
-    {id: 6, name: 'Breakfast', roast: 'medium'},
-    {id: 7, name: 'High', roast: 'dark'},
-    {id: 8, name: 'Continental', roast: 'dark'},
-    {id: 9, name: 'New Orleans', roast: 'dark'},
-    {id: 10, name: 'European', roast: 'dark'},
-    {id: 11, name: 'Espresso', roast: 'dark'},
-    {id: 12, name: 'Viennese', roast: 'dark'},
-    {id: 13, name: 'Italian', roast: 'dark'},
-    {id: 14, name: 'French', roast: 'dark'},
+    {id: 0, name: 'Full City', roast: 'medium', description: 'light brown in color'},
+    {id: 1, name: 'Light City', roast: 'light', description: 'light brown in color'},
+    {id: 2, name: 'Half City', roast: 'light', description: 'light brown in color'},
+    {id: 3, name: 'Cinnamon', roast: 'light', description: 'light brown in color'},
+    {id: 4, name: 'City', roast: 'medium', description: 'medium brown in color'},
+    {id: 5, name: 'American', roast: 'medium', description: 'medium brown in color'},
+    {id: 6, name: 'Breakfast', roast: 'medium', description: 'medium brown in color'},
+    {id: 7, name: 'High', roast: 'dark', description: 'dark brown in color'},
+    {id: 8, name: 'Continental', roast: 'dark', description: 'dark brown in color'},
+    {id: 9, name: 'New Orleans', roast: 'dark', description: 'dark brown in color'},
+    {id: 10, name: 'European', roast: 'dark', description: 'dark brown in color'},
+    {id: 11, name: 'Espresso', roast: 'dark', description: 'dark brown in color'},
+    {id: 12, name: 'Viennese', roast: 'dark', description: 'dark brown in color'},
+    {id: 13, name: 'Italian', roast: 'dark', description: 'dark brown in color'},
+    {id: 14, name: 'French', roast: 'dark', description: 'dark brown in color'},
 ];
 
 // SETMAXINDEX if no MAXINDEX in local storage
@@ -89,12 +89,17 @@ function deleteCoffeeFromStorage(coffeeID) {
 
 //Render coffee
 function renderCoffee(coffee) {
-    let html = '<div class="coffee col-10 col-md-6 mb-5 ">';
+    let html = `<div id="${coffee.id}" data-toggle="tooltip" title="${coffee.description}" class="coffee col-10 col-md-6 mb-5 ">`;
     html += `<h2 class="d-inline">` + coffee.name;
     html += `<h4 class="d-inline text-secondary">` + " " + coffee.roast;
     html += `</div>`;
     return html;
 }
+
+function showToolTip(id){
+    document.getElementById("id").addeventlistener
+}
+
 
 //Render Coffees - call RenderCoffee for every coffee
 function renderCoffees(coffees) {
@@ -160,12 +165,14 @@ function addRemoveCoffee(e) {
     e.preventDefault(); // don't submit the form, we just want to update the data
     let selectedRoast = addRoastSelectionQS.value;
     let newCoffeeName = addCoffeeNameQS.value;
+    let newCoffeeDescription = descriptionQS.value;
     let flag = false;
     let coffees = getCoffeesFromStorage();
     let newCoffee = {
         id: getMaxIndex(),
         name: newCoffeeName,
-        roast: selectedRoast
+        roast: selectedRoast,
+        description: newCoffeeDescription
     }
     let found = {};
     console.log(coffees.length)
@@ -181,6 +188,7 @@ function addRemoveCoffee(e) {
     submitButtonQS.value = "Add / Remove";
     addCoffeeNameQS.value = "";
     addRoastSelectionQS.value = "light";
+    descriptionQS.value = "";
     console.log("After add " + getCoffeesFromStorage());
     divCoffeeQS.innerHTML = renderCoffees(getCoffeesFromStorage());
 }
@@ -198,6 +206,7 @@ coffeeNameQS.addEventListener('keyup', displayFilteredCoffees);
 let addCoffeeNameQS = document.querySelector('#addCoffeeName');
 let addRoastSelectionQS = document.querySelector('#addRoastType');
 let submitButtonQS = document.querySelector('#submitAddCoffee');
+let descriptionQS = document.querySelector('#addCoffeeDescription');
 addCoffeeNameQS.addEventListener('keyup', changeSubmitButton);
 addRoastSelectionQS.addEventListener('change', changeSubmitButton);
 
